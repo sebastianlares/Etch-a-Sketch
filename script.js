@@ -3,49 +3,32 @@ const gridBox = document.querySelector('.gridBox');
 gridSize(16);
 
 const resetGrid = document.querySelector('#reset');
+const newGridSize = document.querySelector('#size');
+const colorButton = document.querySelector('#random');
+const greyButton = document.querySelector('#grey');
+
+gridColor('black');
 
 resetGrid.addEventListener('click', () => {
     deleteGrid();
     gridSize(16);
+    gridColor('black', '1');
 });
 
-const newGridSize = document.querySelector('#size');
-//event listener for the size button
 newGridSize.addEventListener('click', () => {
     let size = prompt('Enter new grid size: ');
     deleteGrid();
     gridSize(size);
+    gridColor('black', '1');
 });
-//event listener for the random color button 
-const randomColorButton = document.querySelector('#random');
 
-randomColorButton.addEventListener('click', () => {
-    
-    const randomGrid = document.querySelectorAll('.column');
-    randomGrid.forEach(el => {
-        el.addEventListener('mouseover', () => {
-        el.style.background = randomColor();
-        el.style.border = '0.5px solid black';
-        el.style.opacity = '1';
-        });
-    });
+colorButton.addEventListener('click',() => {
+    gridColor(randomColor(), '1');
 })
 
-const greyButton = document.querySelector('#grey');
-//event listener for the grey button
 greyButton.addEventListener('click', () => {
-
-    const greyGrid = document.querySelectorAll('.column');
-    greyGrid.forEach(el => {
-        el.addEventListener('mouseover', () => {
-            el.style.border = '0.5px solid black';
-            el.style.background = 'black';
-            // here is the main problem: in order to make they grey scale work, the opacity needs to be toned down.
-            //if they random color button is pressed before the grey button, the opacity does change and stays on
-            el.style.opacity -= '-0.1';
-        });
-    });
-});
+    gridColor('black', '-0.2');
+})
 
 // for loop that itinerates over the rows and columnd of the grid, being the index the input from the prompt (size)
 function gridSize (size) {
@@ -77,11 +60,6 @@ function gridSize (size) {
         el.style.width = '100%';
         el.style.height = '100%';
         el.style.border = '0.5px solid black';
-
-        el.addEventListener('mouseover', () => {
-            el.style.background = 'black';
-            el.style.border = '0.5px solid #272626';
-        });
     });
 }
 
@@ -91,7 +69,6 @@ function randomColor () {
   return "#" + ("000000" + hex.toString(16)).substr(-6);
 }
 
-
 // clears the grid
 function clearGrid () {
 
@@ -99,9 +76,6 @@ function clearGrid () {
     newGrid.forEach(el => {
         el.style.background = 'white';
         el.style.border = '0.5px solid black';
-        el.addEventListener('mouseover', () => {
-            el.style.background = 'black';
-        });
     })
 }
 
@@ -111,3 +85,16 @@ function deleteGrid(){
         gridBox.removeChild(gridBox.firstChild);
     }
 }
+
+function gridColor(color, opacity) {
+    const grid = document.querySelectorAll('.column');
+    grid.forEach(el => {
+        el.addEventListener('mouseover', () => {
+            el.style.background = color;
+            el.style.border = '0.5 solid #272626';
+            el.style.opacity = opacity;
+        });
+    });
+}
+
+  
