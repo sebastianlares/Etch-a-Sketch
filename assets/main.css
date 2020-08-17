@@ -80,19 +80,46 @@ table {
     box-sizing: border-box;
     margin: auto auto;
 }
-
-.buttons {
+#buttons {
+    display: flex;
+    height: 57px;
+    width: 600px;
     display: flex;
     justify-content: center;
-    padding-top: 20px;
+    margin: auto;
+    padding: 10px;
+}
+
+button {
+    font-family: monospace;
+    font-size: 13px;
+    width: 118px;
+    transition: 0.20s ease;
+    color: black;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    margin: 5px;
+    outline: none;
+}
+
+button:hover {
+    color: white;
+    border-radius: 3px;
+    border-color: white;
+    border-width: 1px;
+    background-color: #584c4c;
 }
 
 .foot {
     display: flex;
     justify-content: center;
-    padding-top: 50px;
+    padding-top: 105px;
 }   
 
 .foot p {
     padding-bottom: 10px;
+}
+
+footer:hover {
+    opacity: 0.6;
 }

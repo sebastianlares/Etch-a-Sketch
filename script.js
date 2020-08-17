@@ -5,9 +5,9 @@ gridSize(16);
 const resetGrid = document.querySelector('#reset');
 const newGridSize = document.querySelector('#size');
 const colorButton = document.querySelector('#random');
-const greyButton = document.querySelector('#grey');
+const BlackButton = document.querySelector('#black');
 
-gridColor('black');
+gridColor('black', '1');
 
 resetGrid.addEventListener('click', () => {
     deleteGrid();
@@ -16,7 +16,13 @@ resetGrid.addEventListener('click', () => {
 });
 
 newGridSize.addEventListener('click', () => {
-    let size = prompt('Enter new grid size: ');
+    let size = parseInt(window.prompt('Enter new grid size: '));
+    if (isNaN(size)) {
+        deleteGrid();
+        gridSize(16);
+        gridColor('black', '1');
+        return;
+    }
     deleteGrid();
     gridSize(size);
     gridColor('black', '1');
@@ -26,10 +32,9 @@ colorButton.addEventListener('click',() => {
     gridColor(randomColor(), '1');
 })
 
-greyButton.addEventListener('click', () => {
-    gridColor('black', '-0.2');
-})
-
+BlackButton.addEventListener('click', () => {
+    gridColor('black', '1');
+});
 // for loop that itinerates over the rows and columnd of the grid, being the index the input from the prompt (size)
 function gridSize (size) {
 
@@ -87,12 +92,18 @@ function deleteGrid(){
 }
 
 function gridColor(color, opacity) {
+    let newColor;
     const grid = document.querySelectorAll('.column');
     grid.forEach(el => {
         el.addEventListener('mouseover', () => {
-            el.style.background = color;
-            el.style.border = '0.5 solid #272626';
-            el.style.opacity = opacity;
+            if (color == 'black') {
+                el.style.background = 'black';
+            }
+            else {
+                newColor = randomColor();
+                el.style.background = newColor;
+            }
+            el.style.border = '0.5 solid black'; 
         });
     });
 }
